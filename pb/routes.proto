@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package pb;
+option go_package = ".;proto";
+
+import "user.proto";
+
+message TokenDetails {
+  string access_token = 1;
+}
+
+message ReturnStatus{
+  bool success = 1;
+  string response = 2;
+  optional TokenDetails token = 3;
+}
+
+// TODO: logoff, update details, forgot password, delete user, revoke token
+service AuthRoutes{
+  rpc Register(User) returns(ReturnStatus){}
+
+  rpc Login(UserAuthInformation) returns(ReturnStatus){}
+
+  rpc RefreshToken(TokenDetails) returns(ReturnStatus){}
+
+  rpc ValidateToken(TokenDetails) returns(ReturnStatus){}
+}

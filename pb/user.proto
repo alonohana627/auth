@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package pb;
+option go_package = ".;proto";
+
+message UserAuthInformation{
+  string email = 1;
+  string password = 2;
+}
+
+message User {
+  string nickname = 1;
+  UserAuthInformation authInfo = 2;
+}

@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  pgql:
+    image: postgres:16-bullseye
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=users
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  auth:
+    build: .
+    command: sh -c "./auth"
+    depends_on: [ pgql ]
+    environment:
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_URL=pgql
+      - DB_PORT=5432
+      - JWT_SECRET=alonibaloni
+    ports:
+      - '3000:3000'
+
+volumes:
+  db:
+    driver: local
