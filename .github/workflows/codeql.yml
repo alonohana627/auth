@@ -76,20 +76,11 @@ jobs:
         go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
         go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 
-    - name: Set up working directory
-      run: mkdir -p /AuthService
-
-    - name: Copy go.mod and go.sum
-      run: cp go.mod go.sum /AuthService/
-
     - name: Download Go modules
       run: go mod download
 
-    - name: Copy Source Code
-      run: cp -r . /AuthService/
-
     - name: Generate Protobuf
-      run: chmod +x /AuthService/generate_protobuf.sh && /AuthService/generate_protobuf.sh
+      run: chmod +x generate_protobuf.sh && generate_protobuf.sh
 
     - name: Build Go Application
       run: go build .
