@@ -79,8 +79,11 @@ jobs:
     - name: Download Go modules
       run: go mod download
 
+    - name: Protoscript
+      run: chmod +x ./generate_protobuf.sh
+
     - name: Generate Protobuf
-      run: chmod +x generate_protobuf.sh && generate_protobuf.sh
+      run: ./generate_protobuf.sh
 
     - name: Build Go Application
       run: go build .
